@@ -12,14 +12,13 @@ public class TakingTurnsQueueTests
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: People with 1 turn left were not handled correctly. They were dropped too early instead of being returned once more before removal.
-
-
+    public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
         var tim = new Person("Tim", 5);
         var sue = new Person("Sue", 3);
 
-        Person[] expectedResult = [bob, tim, sue, bob, tim, sue, tim, sue, tim, tim];
+        Person[] expectedResult = new Person[] { bob, tim, sue, bob, tim, sue, tim, sue, tim, tim };
 
         var players = new TakingTurnsQueue();
         players.AddPerson(bob.Name, bob.Turns);
@@ -44,8 +43,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
-    // Defect(s) Found:  Same issue with turn decrement logic. George’s sequence did not match expected because people with 1 turn left were not handled correctly.
-
+    // Defect(s) Found: Same issue with turn decrement logic. George’s sequence did not match expected because people with 1 turn left were not handled correctly.
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -53,7 +51,7 @@ public class TakingTurnsQueueTests
         var sue = new Person("Sue", 3);
         var george = new Person("George", 3);
 
-        Person[] expectedResult = [bob, tim, sue, bob, tim, sue, tim, george, sue, tim, george, tim, george];
+        Person[] expectedResult = new Person[] { bob, tim, sue, bob, tim, sue, tim, george, sue, tim, george, tim, george };
 
         var players = new TakingTurnsQueue();
         players.AddPerson(bob.Name, bob.Turns);
@@ -88,7 +86,6 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: Infinite turns (0) were not re-enqueued. Tim disappeared too early instead of staying in the queue forever.
-
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -97,7 +94,7 @@ public class TakingTurnsQueueTests
         var tim = new Person("Tim", timTurns);
         var sue = new Person("Sue", 3);
 
-        Person[] expectedResult = [bob, tim, sue, bob, tim, sue, tim, sue, tim, tim];
+        Person[] expectedResult = new Person[] { bob, tim, sue, bob, tim, sue, tim, sue, tim, tim };
 
         var players = new TakingTurnsQueue();
         players.AddPerson(bob.Name, bob.Turns);
@@ -120,14 +117,13 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
     // Defect(s) Found: Infinite turns (negative) were not re-enqueued. Tim disappeared too early instead of staying in the queue forever.
-
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
         var tim = new Person("Tim", timTurns);
         var sue = new Person("Sue", 3);
 
-        Person[] expectedResult = [tim, sue, tim, sue, tim, sue, tim, tim, tim, tim];
+        Person[] expectedResult = new Person[] { tim, sue, tim, sue, tim, sue, tim, tim, tim, tim };
 
         var players = new TakingTurnsQueue();
         players.AddPerson(tim.Name, tim.Turns);
@@ -147,7 +143,7 @@ public class TakingTurnsQueueTests
     [TestMethod]
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
-    // Defect(s) Found:  No defect. Exception was thrown correctly with message "No one in the queue.
+    // Defect(s) Found: No defect. Exception was thrown correctly with message "No one in the queue."
     public void TestTakingTurnsQueue_Empty()
     {
         var players = new TakingTurnsQueue();
