@@ -1,3 +1,5 @@
+using week03.code;
+
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
